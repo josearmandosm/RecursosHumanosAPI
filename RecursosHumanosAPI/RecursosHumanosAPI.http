@@ -1,0 +1,6 @@
+@RecursosHumanosAPI_HostAddress = http://localhost:5167
+
+GET {{RecursosHumanosAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
