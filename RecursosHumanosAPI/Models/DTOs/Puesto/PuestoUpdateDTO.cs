@@ -1,8 +1,16 @@
-﻿namespace RecursosHumanosAPI.DTOs
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace RecursosHumanosAPI.DTOs
 {
     public class PuestoUpdateDTO
     {
-        public required string Nombre { get; set; }
-        public int PuestoId { get; internal set; }
+        [Required]
+        [StringLength(100)]
+        public required string Titulo { get; set; }
+
+        [StringLength(500)]
+        public required string Descripcion { get; set; }
+
+        public int DepartamentoId { get; set; }
     }
 }
