@@ -14,5 +14,6 @@ namespace RecursosHumanosAPI.DTOs
         public decimal Salario { get; set; }
 
         public int EmpleadoId { get; set; }
+        public object NominaId { get; internal set; }
     }
 }

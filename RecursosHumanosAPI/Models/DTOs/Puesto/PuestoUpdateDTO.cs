@@ -12,5 +12,6 @@ namespace RecursosHumanosAPI.DTOs
         public required string Descripcion { get; set; }
 
         public int DepartamentoId { get; set; }
+        public int PuestoId { get; internal set; }
     }
 }

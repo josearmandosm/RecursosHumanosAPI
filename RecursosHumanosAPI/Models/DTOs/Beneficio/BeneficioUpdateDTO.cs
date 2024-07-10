@@ -10,5 +10,6 @@ namespace RecursosHumanosAPI.DTOs
 
         [StringLength(500)]
         public required string Descripcion { get; set; }
+        public int BeneficioId { get; internal set; }
     }
 }

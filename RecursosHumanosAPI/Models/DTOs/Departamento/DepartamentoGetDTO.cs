@@ -9,5 +9,6 @@ namespace RecursosHumanosAPI.DTOs
         [Required]
         [StringLength(100)]
         public required string Nombre { get; set; }
+        public object DepartamentoId { get; internal set; }
     }
 }
