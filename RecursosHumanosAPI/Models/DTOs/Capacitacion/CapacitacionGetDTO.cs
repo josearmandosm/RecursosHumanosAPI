@@ -15,6 +15,6 @@ namespace RecursosHumanosAPI.DTOs
 
         [StringLength(500)]
         public required string Descripcion { get; set; }
-        public object CapacitacionId { get; internal set; }
+        public object? CapacitacionId { get; internal set; }
     }
 }
