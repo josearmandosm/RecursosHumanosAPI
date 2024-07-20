@@ -82,14 +82,20 @@ namespace RecursosHumanosAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<BeneficioGetDTO>> PostBeneficio(BeneficioInsertDTO beneficioDTO)
         {
+            // Mapea el DTO a la entidad del modelo
             var beneficio = _mapper.Map<Beneficio>(beneficioDTO);
+
+            // Añade el nuevo beneficio al contexto y guarda los cambios en la base de datos
             _context.Beneficios.Add(beneficio);
             await _context.SaveChangesAsync();
 
+            // Mapea la entidad creada a un DTO de lectura
             var createdBeneficioDTO = _mapper.Map<BeneficioGetDTO>(beneficio);
 
+            // Devuelve la respuesta con la ubicación del nuevo recurso
             return CreatedAtAction("GetBeneficio", new { id = createdBeneficioDTO.BeneficioId }, createdBeneficioDTO);
         }
+
 
         // DELETE: api/Beneficios/5
         [HttpDelete("{id}")]

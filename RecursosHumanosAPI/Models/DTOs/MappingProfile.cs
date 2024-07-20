@@ -8,9 +8,25 @@ public class MappingProfile : Profile
     public MappingProfile()
     {
         // Beneficio mappings
+        // Mapeo de Beneficio a BeneficioGetDTO y viceversa
         CreateMap<Beneficio, BeneficioGetDTO>().ReverseMap();
-        CreateMap<Beneficio, BeneficioInsertDTO>().ReverseMap();
-        CreateMap<Beneficio, BeneficioUpdateDTO>().ReverseMap();
+
+        // Mapeo de BeneficioInsertDTO a Beneficio para creación
+        CreateMap<BeneficioInsertDTO, Beneficio>()
+            .ForMember(dest => dest.Tipo, opt => opt.MapFrom(src => src.Nombre))
+            .ForMember(dest => dest.Descripcion, opt => opt.MapFrom(src => src.Descripcion));
+
+        // Mapeo de BeneficioUpdateDTO a Beneficio para actualización
+        CreateMap<BeneficioUpdateDTO, Beneficio>()
+            .ForMember(dest => dest.Tipo, opt => opt.MapFrom(src => src.Nombre))
+            .ForMember(dest => dest.Descripcion, opt => opt.MapFrom(src => src.Descripcion));
+
+        // Beneficio mappings
+        // Mapeo inverso si es necesario para las actualizaciones
+        CreateMap<Beneficio, BeneficioUpdateDTO>()
+            .ForMember(dest => dest.Nombre, opt => opt.MapFrom(src => src.Tipo))
+            .ForMember(dest => dest.Descripcion, opt => opt.MapFrom(src => src.Descripcion));
+
 
         // Capacitacion mappings
         CreateMap<Capacitacion, CapacitacionGetDTO>().ReverseMap();
