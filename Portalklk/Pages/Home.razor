@@ -1,7 +1,68 @@
 ﻿@page "/"
 
+@* Título de la página *@
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+@* Sección de estilos *@
+<style>
+    .home-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+        color: #333;
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
 
-Welcome to your new app.
+        .home-container h1 {
+            font-size: 3em;
+            margin-bottom: 0.5em;
+            color: #4a90e2;
+        }
+
+        .home-container p {
+            font-size: 1.2em;
+            margin-bottom: 1.5em;
+        }
+
+    .btn-primary {
+        background-color: #4a90e2;
+        color: white;
+        padding: 0.75em 1.5em;
+        font-size: 1em;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-primary:hover {
+            background-color: #357ab8;
+        }
+</style>
+
+@* Contenido de la página *@
+<div class="home-container">
+    <h1>Bienvenidos a la mejor pagina del mundo</h1>
+    <p>Los sabados son los unicos dias que no funciona la pagina</p>
+    <button class="btn-primary" @onclick="ExploreFeatures">dale aqui pa que tu vea</button>
+</div>
+
+@code {
+    [Inject]
+    private NavigationManager NavigationManager { get; set; }
+
+    public Home()
+    {
+        NavigationManager = null!;
+    }
+
+    private void ExploreFeatures()
+    {
+       
+        NavigationManager.NavigateTo("/features");
+    }
+}
