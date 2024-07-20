@@ -1,0 +1,84 @@
+﻿@page "/Beneficios"
+
+@using RecursosHumanos.Shared;
+@using CurrieTechnologies.Razor.SweetAlert2;
+@using Portalklk.Services;
+
+@inject SweetAlertService Swal;
+@inject IBeneficioService beneficioService;
+@inject NavigationManager Navigation;
+
+<h3>Beneficio</h3>
+
+<a class="btn btn-success btn-sm mb-3" href="/addbeneficio">Nuevo Beneficio</a>
+
+@if (listBeneficio == null)
+{
+    <p><em>Cargando...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var beneficio in listBeneficio)
+            {
+                <tr>
+                    <td>@beneficio.Id</td>
+                    <td>@beneficio.Nombre</td>
+                    <td>@beneficio.Descripcion</td>
+                    <td>
+                        <button class="btn btn-danger" @onclick="() => Delete(beneficio.Id)">Eliminar</button>
+                        <button class="btn btn-primary" @onclick="() => Edit(beneficio.Id)">Editar</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    List<BeneficioGetDTO>? listBeneficio = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        listBeneficio = await beneficioService.List();
+    }
+
+    private async Task Delete(int id)
+    {
+        var result = await Swal.FireAsync(new SweetAlertOptions
+            {
+                Title = "Eliminar Beneficio",
+                Text = "¿Estás seguro de que quieres eliminar este beneficio?",
+                Icon = SweetAlertIcon.Question,
+                ShowCancelButton = true
+            });
+
+        if (result.IsConfirmed)
+        {
+            bool success = await beneficioService.Delete(id);
+            if (success)
+            {
+                listBeneficio = await beneficioService.List();
+                await Swal.FireAsync("Eliminado", "El beneficio ha sido eliminado exitosamente.", SweetAlertIcon.Success);
+            }
+            else
+            {
+                await Swal.FireAsync("Error", "Hubo un problema al eliminar el beneficio.", SweetAlertIcon.Error);
+            }
+        }
+    }
+
+    private void Edit(int id)
+    {
+        Navigation.NavigateTo($"/editbeneficio/{id}");
+    }
+}

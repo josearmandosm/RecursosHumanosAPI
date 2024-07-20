@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RecursosHumanosAPI.DTOs;
 using RecursosHumanosAPI.Models;
+//using RecursosHumanos.Shared;
 
 namespace RecursosHumanosAPI.Controllers
 {

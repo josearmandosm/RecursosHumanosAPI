@@ -19,7 +19,18 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(opciones => {
+    opciones.AddPolicy("BlazorClient", app =>
+    {
+        app.AllowAnyOrigin()
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+    });
+});
+
+
 var app = builder.Build();
+
 
 // Configurar el pipeline de solicitudes HTTP
 if (app.Environment.IsDevelopment())
@@ -31,5 +42,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
+app.UseCors("BlazorClient");
 
 app.Run();
